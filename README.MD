@@ -1,16 +1,16 @@
-#Basic Firebase set-up
+# Basic Firebase set-up
 
-##Firebase Install
+## Firebase Install
 
 $ npm install angularfire2@4.0.0-rc.0 firebase@^3.6.6 --save
           -or-
   yarn add angularfire2@4.0.0-rc.0 firebase@^3.6.6 --save
 
-—-
+==============================
 
-##make api call##
+## make api call##
 
-src/app/api-keys.ts
+**src/app/api-keys.ts**
 
 export const masterFirebaseConfig = {
     apiKey: "xxxx",
@@ -20,20 +20,20 @@ export const masterFirebaseConfig = {
     messagingSenderId: "xxxx"
   };
 
-—
-##add to git ignore*
+==============================
+## add to git ignore*
 
-.gitignore
+**.gitignore**
 
 ...
-##Firebase credentials
+## Firebase credentials
 /src/app/api-keys.ts
 
-—-
+==============================
 
-##import to app.module
+## import to app.module
 
-src/app/app.module.ts
+**src/app/app.module.ts**
 
 …
 
@@ -69,9 +69,9 @@ export const firebaseConfig = {
 })
 export class AppModule { }
 
-—
+==============================
 
-##adjust rules
+## adjust rules
 
 Finally, we just need to tell our Firebase database that we'd like to allow outside applications to read and write to it.
 * We'll visit our Firebase Console once more, and select our project's name from the list.
@@ -84,3 +84,77 @@ Finally, we just need to tell our Firebase database that we'd like to allow outs
     ".write": "true"
   }
 }
+
+==============================
+
+# DEPLOYMENT!!
+
+$ ng build --env=prod
+
+==============================
+
+$ npm install -g firebase-tools
+
+or 
+
+yarn global add firebase-tools
+
+==============================
+
+$ firebase login
+
+$ firebase init
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/student/Desktop/your-project-directory-name
+
+? What Firebase CLI features do you want to setup for this folder?
+❯◉ Database: Deploy Firebase Realtime Database Rules
+ ◉ Hosting: Configure and deploy Firebase Hosting sites
+
+ ...
+
+==============================
+
+=== Project Setup
+
+First, let's associate this project directory with a Firebase project.
+You can create multiple project aliases by running firebase use --add,
+but for now we'll just set up a default project.
+
+? What Firebase project do you want to associate as default? (Use arrow keys)
+your-firebase-project-names-here
+
+
+Your current Firebase projects will be listed. Using the arrow keys to navigate, select the one that corresponds to the project you're deploying. If this project doesn't have a Firebase a database, select the project you created a moment ago. If it does, select the project containing its database.
+
+==============================
+
+## Next, create a file in the top-level of your project directory named database.rules.json. Insert the following into it:
+
+**database.rules.json**
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+==============================
+
+**firebase.json**
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "dist"
+  }
+}
+
+==============================
+
+$ firebase deploy
+
+:fire: :fire: :fire:
